@@ -12,7 +12,7 @@ import (
 	"os"
 	"strconv"
 
-	"go-darwin.dev/exp/pkg/libproc"
+	"go-darwin.dev/exp/libproc"
 )
 
 func main() {
