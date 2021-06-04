@@ -7,12 +7,11 @@
 package libproc
 
 import (
-	_ "runtime" // used with go:linkname
+	_ "runtime" // for go:linkname
 	"unsafe"
 
-	"golang.org/x/sys/unix"
-
 	"go-darwin.dev/exp/sys"
+	"golang.org/x/sys/unix"
 )
 
 // ProcPidpath given a pid, returns the full executable name including directory
@@ -44,8 +43,8 @@ import (
 func ProcPidpath(pid int) (path string, err error) {
 	buffer := make([]byte, ProcPidpathinfoSize)
 	_, _, kret := procPidpath(pid, unsafe.Pointer(&buffer[0]), uint32(ProcPidpathinfoMaxsize))
-	if kret != 0 {
-		return "", sys.Errno(kret)
+	if sys.KernReturn(kret) != sys.KernSuccess {
+		return "", sys.KernErrno(sys.KernReturn(kret))
 	}
 
 	path = sys.GoString(&buffer[0])
