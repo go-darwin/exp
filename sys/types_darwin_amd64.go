@@ -6,15 +6,46 @@
 
 package sys
 
+import "unsafe"
+
+// list of common C types.
 type (
 	C_short    = c_short
 	C_int      = c_int
+	C_int8     = c_int8
+	C_int16    = c_int16
+	C_int32    = c_int32
+	C_int64    = c_int64
 	C_long     = c_long
 	C_longLong = c_longLong
 	C_uint     = c_uint
+	C_uint8    = c_uint8
+	C_uint16   = c_uint16
+	C_uint32   = c_uint32
+	C_uint64   = c_uint64
 	C_char     = c_char
 	C_float    = c_float
 	C_double   = c_double
+)
+
+// list of common C types size.
+const (
+	Sizeof_C_short    = unsafe.Sizeof(new(c_short))
+	Sizeof_C_int      = unsafe.Sizeof(new(c_int))
+	Sizeof_C_int8     = unsafe.Sizeof(new(c_int8))
+	Sizeof_C_int16    = unsafe.Sizeof(new(c_int16))
+	Sizeof_C_int32    = unsafe.Sizeof(new(c_int32))
+	Sizeof_C_int64    = unsafe.Sizeof(new(c_int64))
+	Sizeof_C_long     = unsafe.Sizeof(new(c_long))
+	Sizeof_C_longLong = unsafe.Sizeof(new(c_longLong))
+	Sizeof_C_uint     = unsafe.Sizeof(new(c_uint))
+	Sizeof_C_uint8    = unsafe.Sizeof(new(c_uint8))
+	Sizeof_C_uint16   = unsafe.Sizeof(new(c_uint16))
+	Sizeof_C_uint32   = unsafe.Sizeof(new(c_uint32))
+	Sizeof_C_uint64   = unsafe.Sizeof(new(c_uint64))
+	Sizeof_C_char     = unsafe.Sizeof(new(c_char))
+	Sizeof_C_float    = unsafe.Sizeof(new(c_float))
+	Sizeof_C_double   = unsafe.Sizeof(new(c_double))
 )
 
 // KernReturn represents a kern_return_t.
