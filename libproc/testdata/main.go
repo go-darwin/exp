@@ -31,4 +31,10 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Printf("libproc.ProcPidpath: pid: %d, process name: %s\n", pid, path)
+
+	numPids, err := libproc.ProcListallpids()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("numPids: %#v\n", numPids)
 }
