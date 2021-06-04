@@ -15,6 +15,41 @@ import (
 	"go-darwin.dev/exp/sys"
 )
 
+// ProcListallpids retursn the list all pids.
+//
+// C implementation:
+//
+//  int
+//  proc_listallpids(void * buffer, int buffersize)
+//  {
+//  	int numpids;
+//  	numpids = proc_listpids(PROC_ALL_PIDS, (uint32_t)0, buffer, buffersize);
+//
+//  	if (numpids == -1) {
+//  		return -1;
+//  	} else {
+//  		return numpids / sizeof(int);
+//  	}
+//  }
+func ProcListallpids() (numPids int, err error) {
+	r1, _, kret := proc_listallpids()
+	if sys.KernReturn(kret) != sys.KernSuccess {
+		return 0, sys.KernErrno(sys.KernReturn(kret))
+	}
+
+	numPids = int(r1 / sys.Sizeof_C_int)
+	return
+}
+
+//go:nosplit
+func proc_listallpids() (r1, r2 uintptr, err unix.Errno) {
+	return sys.Syscall(libc_proc_listallpids_trampoline_addr, uintptr(0), uintptr(0), 0)
+}
+
+var libc_proc_listallpids_trampoline_addr uintptr
+
+//go:cgo_import_dynamic libc_proc_listallpids proc_listallpids "/usr/lib/libSystem.B.dylib"
+
 // ProcPidpath given a pid, returns the full executable name including directory
 // paths and the longer-than-16-chars executable name.
 //
