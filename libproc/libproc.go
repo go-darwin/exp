@@ -43,7 +43,7 @@ func ProcListallpids() (numPids int, err error) {
 
 //go:nosplit
 func proc_listallpids() (r1, r2 uintptr, err unix.Errno) {
-	return sys.Syscall(libc_proc_listallpids_trampoline_addr, uintptr(0), uintptr(0), 0)
+	return sys.Syscall(libc_proc_listallpids_trampoline_addr, uintptr(0), uintptr(0), uintptr(0))
 }
 
 var libc_proc_listallpids_trampoline_addr uintptr
