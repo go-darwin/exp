@@ -4,8 +4,47 @@
 package libproc
 
 const (
-	ProcPidpathinfoMaxsize	= 0x1000
 	ProcPidpathinfoSize	= 0x400
+	ProcPidpathinfoMaxsize	= 0x1000
 )
 
 type PID int32
+
+const (
+	ProcListpidspathPathIsVolume	= 0x1
+
+	ProcListpidspathExcludeEvtonly	= 0x2
+)
+
+type ProcType uint32
+
+const (
+	ProcAllPids	ProcType	= 0x1
+	ProcPgrpOnly	ProcType	= 0x2
+	ProcTtyOnly	ProcType	= 0x3
+	ProcUidOnly	ProcType	= 0x4
+	ProcRUIDOnly	ProcType	= 0x5
+	ProcPPIDOnly	ProcType	= 0x6
+	ProcKDBGOnly	ProcType	= 0x7
+)
+
+type ProcTaskInfo struct {
+	Virtual_size		uint64
+	Resident_size		uint64
+	Total_user		uint64
+	Total_system		uint64
+	Threads_user		uint64
+	Threads_system		uint64
+	Policy			int32
+	Faults			int32
+	Pageins			int32
+	Cow_faults		int32
+	Messages_sent		int32
+	Messages_received	int32
+	Syscalls_mach		int32
+	Syscalls_unix		int32
+	Csw			int32
+	Threadnum		int32
+	Numrunning		int32
+	Priority		int32
+}
