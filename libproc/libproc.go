@@ -10,8 +10,9 @@ import (
 	_ "runtime" // for go:linkname
 	"unsafe"
 
-	"go-darwin.dev/exp/sys"
 	"golang.org/x/sys/unix"
+
+	"go-darwin.dev/exp/sys"
 )
 
 // ProcPidpath given a pid, returns the full executable name including directory
@@ -40,7 +41,7 @@ import (
 //  	}
 //  	return (0);
 //  }
-func ProcPidpath(pid int) (path string, err error) {
+func ProcPidpath(pid PID) (path string, err error) {
 	buffer := make([]byte, ProcPidpathinfoSize)
 	_, _, kret := procPidpath(pid, unsafe.Pointer(&buffer[0]), uint32(ProcPidpathinfoMaxsize))
 	if sys.KernReturn(kret) != sys.KernSuccess {
@@ -52,7 +53,7 @@ func ProcPidpath(pid int) (path string, err error) {
 }
 
 //go:nosplit
-func procPidpath(pid int, buffer unsafe.Pointer, buffersize uint32) (r1, r2 uintptr, err unix.Errno) {
+func procPidpath(pid PID, buffer unsafe.Pointer, buffersize uint32) (r1, r2 uintptr, err unix.Errno) {
 	return sys.Syscall(libc_proc_pidpath_trampoline_addr, uintptr(pid), uintptr(buffer), uintptr(buffersize))
 }
 

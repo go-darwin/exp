@@ -26,10 +26,9 @@ func main() {
 		log.Fatal(err)
 	}
 
-	path, err := libproc.ProcPidpath(pid)
+	path, err := libproc.ProcPidpath(libproc.PID(pid))
 	if err != nil {
 		log.Fatal(err)
 	}
-
-	fmt.Printf("pid: %d, process name: %s\n", pid, path)
+	fmt.Printf("libproc.ProcPidpath: pid: %d, process name: %s\n", pid, path)
 }
