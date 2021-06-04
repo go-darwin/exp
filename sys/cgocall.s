@@ -13,18 +13,19 @@
 // fn is the PC of a func(a unsafe.Pointer) function.
 //
 // func crosscall2(fn, a unsafe.Pointer, n int32, ctxt uintptr)
-TEXT ·crosscall2(SB),NOSPLIT,$0-0
+TEXT ·crosscall2(SB), NOSPLIT, $0-0
 	PUSH_REGS_HOST_TO_ABI0()
 
 	// Make room for arguments to cgocallback.
-	ADJSP	$0x18
-	MOVQ	DI, 0x0(SP)	/* fn */
-	MOVQ	SI, 0x8(SP)	/* arg */
+	ADJSP $0x18
+	MOVQ  DI, 0x0(SP) // fn
+	MOVQ  SI, 0x8(SP) // arg
+
 	// Skip n in DX.
-	MOVQ	CX, 0x10(SP)	/* ctxt */
+	MOVQ CX, 0x10(SP) // ctxt
 
-	CALL	runtime·cgocallback(SB)
+	CALL runtime·cgocallback(SB)
 
-	ADJSP	$-0x18
+	ADJSP $-0x18
 	POP_REGS_HOST_TO_ABI0()
 	RET
