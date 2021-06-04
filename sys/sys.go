@@ -7,7 +7,7 @@
 package sys
 
 import (
-	"syscall"
+	_ "syscall" // for go:linkname
 	"unsafe"
 
 	"golang.org/x/sys/unix"
@@ -23,30 +23,6 @@ func libcCall(fn, arg unsafe.Pointer) int32
 // Preserves the calling point as the location where a profiler traceback will begin.
 func LibcCall(fn, arg unsafe.Pointer) int32 {
 	return libcCall(fn, arg)
-}
-
-// Do the interface allocations only once for common
-// Errno values.
-var (
-	errEAGAIN error = syscall.EAGAIN
-	errEINVAL error = syscall.EINVAL
-	errENOENT error = syscall.ENOENT
-)
-
-// Errno returns common boxed Errno values, to prevent
-// allocations at runtime.
-func Errno(e syscall.Errno) error {
-	switch e {
-	case 0:
-		return nil
-	case unix.EAGAIN:
-		return errEAGAIN
-	case unix.EINVAL:
-		return errEINVAL
-	case unix.ENOENT:
-		return errENOENT
-	}
-	return e
 }
 
 //go:linkname syscall_syscall syscall.syscall
