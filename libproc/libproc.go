@@ -12,7 +12,7 @@ import (
 
 	"golang.org/x/sys/unix"
 
-	"go-darwin.dev/exp/pkg/sys"
+	"go-darwin.dev/exp/sys"
 )
 
 // ProcPidpath given a pid, returns the full executable name including directory
