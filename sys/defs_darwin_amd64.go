@@ -23,9 +23,17 @@ import "C"
 type (
 	c_short    C.short
 	c_int      C.int
+	c_int8     C.int8_t
+	c_int16    C.int16_t
+	c_int32    C.int32_t
+	c_int64    C.int64_t
 	c_long     C.long
 	c_longLong C.long_long
 	c_uint     C.uint
+	c_uint8    C.uint8_t
+	c_uint16   C.uint16_t
+	c_uint32   C.uint32_t
+	c_uint64   C.uint64_t
 	c_char     C.char
 	c_float    C.float
 	c_double   C.double

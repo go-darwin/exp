@@ -6,9 +6,17 @@ package sys
 type (
 	c_short		int16
 	c_int		int32
+	c_int8		int8
+	c_int16		int16
+	c_int32		int32
+	c_int64		int64
 	c_long		int64
 	c_longLong	int64
 	c_uint		uint32
+	c_uint8		uint8
+	c_uint16	uint16
+	c_uint32	uint32
+	c_uint64	uint64
 	c_char		int8
 	c_float		float32
 	c_double	float64
